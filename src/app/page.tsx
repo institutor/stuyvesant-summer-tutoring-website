@@ -1,14 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Menu, X, ChevronDown } from 'lucide-react';
 
+// --- Type Definitions ---
+interface Faq {
+    question: string;
+    answer: string;
+}
+
 // --- Helper Hooks and Components for Animations ---
 
-const useOnScreen = (options) => {
-    const ref = useRef(null);
+const useOnScreen = (options: IntersectionObserverInit): [React.RefObject<HTMLDivElement>, boolean] => {
+    const ref = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -34,8 +40,14 @@ const useOnScreen = (options) => {
     return [ref, isVisible];
 };
 
-const AnimatedSection = ({ children, className = '', direction = 'up' }) => {
-    const [ref, isVisible] = useOnScreen({ threshold: 0.2, triggerOnce: true });
+interface AnimatedSectionProps {
+    children: ReactNode;
+    className?: string;
+    direction?: 'up' | 'down' | 'left' | 'right';
+}
+
+const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className = '', direction = 'up' }) => {
+    const [ref, isVisible] = useOnScreen({ threshold: 0.2, rootMargin: '0px' });
 
     const getDirectionClasses = () => {
         switch (direction) {
@@ -57,18 +69,18 @@ const AnimatedSection = ({ children, className = '', direction = 'up' }) => {
     );
 };
 
-const CountUpNumber = ({ end, duration = 2000 }) => {
+const CountUpNumber = ({ end, duration = 2000 }: { end: number; duration?: number }) => {
   const [count, setCount] = useState(0);
-  const [ref, isVisible] = useOnScreen({ threshold: 0.5, triggerOnce: true });
+  const [ref, isVisible] = useOnScreen({ threshold: 0.5 });
 
   useEffect(() => {
     if (isVisible) {
         const start = 0;
-        const endValue = parseInt(end, 10);
+        const endValue = end;
         if (start === endValue) return;
 
-        let startTime = null;
-        const step = (timestamp) => {
+        let startTime: number | null = null;
+        const step = (timestamp: number) => {
           if (!startTime) startTime = timestamp;
           const progress = Math.min((timestamp - startTime) / duration, 1);
           setCount(Math.floor(progress * endValue));
@@ -86,7 +98,7 @@ const CountUpNumber = ({ end, duration = 2000 }) => {
 
 // --- Reusable Section Components ---
 
-const ParallaxSection = ({ imageUrl, children, className = '' }) => (
+const ParallaxSection = ({ imageUrl, children, className = '' }: { imageUrl: string; children: ReactNode; className?: string }) => (
     <section
         className={`relative min-h-[80vh] md:min-h-screen bg-fixed bg-cover bg-center flex items-center justify-center ${className}`}
         style={{ backgroundImage: `url('${imageUrl}')` }}
@@ -98,7 +110,7 @@ const ParallaxSection = ({ imageUrl, children, className = '' }) => (
     </section>
 );
 
-const ContentSection = ({ children, className = '' }) => (
+const ContentSection = ({ children, className = '' }: { children: ReactNode; className?: string }) => (
     <section className={`relative bg-white z-20 py-20 md:py-24 overflow-x-hidden ${className}`}>
         <div className="container mx-auto px-6">
             {children}
@@ -108,7 +120,7 @@ const ContentSection = ({ children, className = '' }) => (
 
 
 // --- FAQ Data and Components ---
-const faqData = [
+const faqData: Faq[] = [
     { question: "Is Stuyvesant Summer Tutoring free?", answer: "Yes! We are completely cost-free, so don’t worry about paying anything for our services!" },
     { question: "When will I know if my child is accepted?", answer: "You will receive an email at least a week before the program to confirm your child’s or children’s acceptance. You will also receive a tutee roster where you can find the day they are scheduled for." },
     { question: "What will my child do during tutoring sessions?", answer: "During tutoring sessions, we will print out and assign past State Tests (standardized tests) or SHSATs (if requested) to kids according to their grade level. Upon finishing the classwork, we will go over the test questions with the child and clear up any confusions they might have." },
@@ -122,7 +134,7 @@ const faqData = [
     { question: "When will the program start and end?", answer: "It will start on July 8th and will end on August 31st." }
 ];
 
-const FaqItem = ({ faq, isOpen, onClick }) => (
+const FaqItem = ({ faq, isOpen, onClick }: { faq: Faq; isOpen: boolean; onClick: () => void }) => (
     <div className="border-b border-gray-200 py-4">
         <button className="w-full flex justify-between items-center text-left text-lg font-semibold text-gray-800 focus:outline-none" onClick={onClick}>
             <span className="hover:text-blue-600 transition-colors">{faq.question}</span>
@@ -139,9 +151,9 @@ const FaqItem = ({ faq, isOpen, onClick }) => (
 // --- Main Page Component ---
 export default function StuySummerTutoringTuteePage() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [openFaqIndex, setOpenFaqIndex] = useState(null);
+    const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
-    const handleFaqClick = (index) => {
+    const handleFaqClick = (index: number) => {
         setOpenFaqIndex(openFaqIndex === index ? null : index);
     };
     
