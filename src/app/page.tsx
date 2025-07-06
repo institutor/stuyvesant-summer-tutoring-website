@@ -13,8 +13,8 @@ interface Faq {
 
 // --- Helper Hooks and Components for Animations ---
 
-const useOnScreen = <T extends Element>(options: IntersectionObserverInit): [React.RefObject<T>, boolean] => {
-    const ref = useRef<T>(null);
+const useOnScreen = (options: IntersectionObserverInit): [React.RefObject<Element>, boolean] => {
+    const ref = useRef<Element>(null);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -47,7 +47,7 @@ interface AnimatedSectionProps {
 }
 
 const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className = '', direction = 'up' }) => {
-    const [ref, isVisible] = useOnScreen<HTMLDivElement>({ threshold: 0.2, rootMargin: '0px' });
+    const [ref, isVisible] = useOnScreen({ threshold: 0.2, rootMargin: '0px' });
 
     const getDirectionClasses = () => {
         switch (direction) {
@@ -63,7 +63,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
     const visibleClasses = 'opacity-100 translate-x-0 translate-y-0';
 
     return (
-        <div ref={ref} className={`${baseClasses} ${className} ${isVisible ? visibleClasses : hiddenClasses}`}>
+        <div ref={ref as React.RefObject<HTMLDivElement>} className={`${baseClasses} ${className} ${isVisible ? visibleClasses : hiddenClasses}`}>
             {children}
         </div>
     );
@@ -71,7 +71,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
 
 const CountUpNumber = ({ end, duration = 2000 }: { end: number; duration?: number }) => {
   const [count, setCount] = useState(0);
-  const [ref, isVisible] = useOnScreen<HTMLSpanElement>({ threshold: 0.5 });
+  const [ref, isVisible] = useOnScreen({ threshold: 0.5 });
 
   useEffect(() => {
     if (isVisible) {
@@ -92,7 +92,7 @@ const CountUpNumber = ({ end, duration = 2000 }: { end: number; duration?: numbe
     }
   }, [end, duration, isVisible]);
 
-  return <span ref={ref}>{count}</span>;
+  return <span ref={ref as React.RefObject<HTMLSpanElement>}>{count}</span>;
 };
 
 
