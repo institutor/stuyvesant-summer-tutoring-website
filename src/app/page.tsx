@@ -12,6 +12,8 @@ interface Faq {
 }
 
 // --- Helper Hooks and Components for Animations ---
+
+// CORRECTED HOOK: 'options' now has the type 'IntersectionObserverInit'
 const useOnScreen = <T extends Element>(options: IntersectionObserverInit) => {
     const ref = useRef<T>(null);
     const [isVisible, setIsVisible] = useState(false);
@@ -96,6 +98,7 @@ const CountUpNumber = ({ end, duration = 2000 }: { end: number; duration?: numbe
 
 
 // --- Reusable Section Components ---
+
 const ParallaxSection = ({ imageUrl, children, className = '' }: { imageUrl: string; children: ReactNode; className?: string }) => (
     <section
         className={`relative min-h-[80vh] md:min-h-screen bg-fixed bg-cover bg-center flex items-center justify-center ${className}`}
@@ -118,10 +121,9 @@ const ContentSection = ({ children, className = '' }: { children: ReactNode; cla
 
 
 // --- FAQ Data and Components ---
-// CORRECTED: Replaced all apostrophes with ' to fix the build error
 const faqData: Faq[] = [
-    { question: "Is Stuyvesant Summer Tutoring free?", answer: "Yes! We are completely cost-free, so don't worry about paying anything for our services!" },
-    { question: "When will I know if my child is accepted?", answer: "You will receive an email at least a week before the program to confirm your child's or children's acceptance. You will also receive a tutee roster where you can find the day they are scheduled for." },
+    { question: "Is Stuyvesant Summer Tutoring free?", answer: "Yes! We are completely cost-free, so don’t worry about paying anything for our services!" },
+    { question: "When will I know if my child is accepted?", answer: "You will receive an email at least a week before the program to confirm your child’s or children’s acceptance. You will also receive a tutee roster where you can find the day they are scheduled for." },
     { question: "What will my child do during tutoring sessions?", answer: "During tutoring sessions, we will print out and assign past State Tests (standardized tests) or SHSATs (if requested) to kids according to their grade level. Upon finishing the classwork, we will go over the test questions with the child and clear up any confusions they might have." },
     { question: "What if my child needs to prepare for other subjects or use different materials?", answer: "If you are not expecting your child to prepare for the State Tests, we will do our best to accommodate. For students in second grade and below, we will provide non-State Test Math and English resources. If you would like us to go over specific material with your child, please make sure to email us the material beforehand. For students in third grade and higher, we prefer not to use outside materials to ensure they are on track with the rest of the class, as we have plenty of practice tests and problems." },
     { question: "Is attendance mandatory?", answer: "While attendance is not mandatory, we highly suggest attending each session. Our Branch Directors will take attendance. If your child is going to be absent/late, please contact your respective branch director. For other issues, feel free to contact the presidents." },

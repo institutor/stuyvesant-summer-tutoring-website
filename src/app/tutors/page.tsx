@@ -6,7 +6,7 @@ import React, { useState, useEffect, useRef, ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpen, Award, Users, ArrowRight, Menu, X } from 'lucide-react';
-import { useOnScreen } from '@/hooks/useOnScreen'; // <--- IMPORT THE HOOK
+import { useOnScreen } from '../hooks/useOnScreen'; // <--- IMPORT THE HOOK
 
 // --- Type Definitions ---
 interface AnimatedSectionProps {
