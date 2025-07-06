@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { BookOpen, BrainCircuit, Sparkles, ArrowRight, Menu, X, ChevronDown } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowRight, Menu, X, ChevronDown } from 'lucide-react';
 
 // --- Helper Hooks and Components for Animations ---
 
@@ -61,7 +63,7 @@ const CountUpNumber = ({ end, duration = 2000 }) => {
 
   useEffect(() => {
     if (isVisible) {
-        let start = 0;
+        const start = 0;
         const endValue = parseInt(end, 10);
         if (start === endValue) return;
 
@@ -113,7 +115,7 @@ const faqData = [
     { question: "What if my child needs to prepare for other subjects or use different materials?", answer: "If you are not expecting your child to prepare for the State Tests, we will do our best to accommodate. For students in second grade and below, we will provide non-State Test Math and English resources. If you would like us to go over specific material with your child, please make sure to email us the material beforehand. For students in third grade and higher, we prefer not to use outside materials to ensure they are on track with the rest of the class, as we have plenty of practice tests and problems." },
     { question: "Is attendance mandatory?", answer: "While attendance is not mandatory, we highly suggest attending each session. Our Branch Directors will take attendance. If your child is going to be absent/late, please contact your respective branch director. For other issues, feel free to contact the presidents." },
     { question: "Will my child receive homework?", answer: "Nope! All assignments and work will be completed during the tutoring sessions. Tutors may assign optional Khan Academy practice at their discretion." },
-    { question: "Where do your tutors come from?", answer: "All of our tutors come directly from Stuyvesant High School, a top NYC school. Our tutors are very well-versed in a variety of subjects and have excelled in NY State test and Regents exams." },
+    { question: "Where do your tutors come from?", answer: "All of our tutors come directly from Stuyvesant High School, a top NYC school. Our tutors are very well-versed in a variety of subjects (such as math, English, the sciences, and foreign language) and have excelled in the NY State test and Regents exams." },
     { question: "Can we participate if we don't live in the Queens area?", answer: "Yes! Our program aims to help all kids in NYC, so we have Branch Directors and tutors stationed in all the boroughs!" },
     { question: "How many tutors are there per session? Will my child get individualized attention?", answer: "There will be 5-15 tutors per session. After pairing, your child will typically have a one-on-one or one-on-two session with their tutor for the rest of the summer." },
     { question: "How are tutors monitored or overseen?", answer: "Each in-person session is monitored by a Branch Director, who records volunteer hours and ensures tutors are on task. If a tutor is absent, the Branch Director will step in to tutor your child." },
@@ -148,12 +150,12 @@ export default function StuySummerTutoringTuteePage() {
             {/* Header */}
             <header className="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
                 <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-                    <a href="/" className="flex items-center space-x-3">
-                        <img src="/images/logo.png" alt="SST Logo" className="h-14 w-auto" onError={(e) => { e.currentTarget.src = 'https://placehold.co/56x56/0284C7/FFFFFF?text=SST'; e.currentTarget.onerror = null; }} />
+                    <Link href="/" className="flex items-center space-x-3">
+                        <Image src="/images/logo.png" alt="SST Logo" width={56} height={56} className="h-14 w-auto" />
                         <span className="text-xl md:text-2xl font-bold text-blue-600">Stuyvesant Summer Tutoring</span>
-                    </a>
+                    </Link>
                     <nav className="hidden md:flex items-center space-x-6">
-                        <a href="/tutors" className="text-gray-600 hover:text-blue-600 transition-colors">For Tutors</a>
+                        <Link href="/tutors" className="text-gray-600 hover:text-blue-600 transition-colors">For Tutors</Link>
                         <a href="https://docs.google.com/forms/d/e/1FAIpQLSe6W0ZYjSN0mUidZax7HInvQvBnC8fGSDLPVkim4oPnaZTHPw/viewform" target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
                             Sign Up Now
                         </a>
@@ -166,7 +168,7 @@ export default function StuySummerTutoringTuteePage() {
                 </div>
                 {isMenuOpen && (
                     <div className="md:hidden bg-white shadow-lg">
-                        <a href="/tutors" className="block px-6 py-3 text-gray-700 hover:bg-gray-100">For Tutors</a>
+                        <Link href="/tutors" className="block px-6 py-3 text-gray-700 hover:bg-gray-100">For Tutors</Link>
                         <a href="https://docs.google.com/forms/d/e/1FAIpQLSe6W0ZYjSN0mUidZax7HInvQvBnC8fGSDLPVkim4oPnaZTHPw/viewform" target="_blank" rel="noopener noreferrer" className="block px-6 py-3 font-semibold text-blue-600 hover:bg-gray-100">Sign Up Now</a>
                     </div>
                 )}
@@ -242,7 +244,7 @@ export default function StuySummerTutoringTuteePage() {
                      <AnimatedSection className="max-w-3xl mx-auto">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
-                            <p className="mt-3 text-lg text-gray-600">Have questions? We've got answers.</p>
+                            <p className="mt-3 text-lg text-gray-600">Have questions? We&apos;ve got answers.</p>
                         </div>
                         <div>
                             {faqData.map((faq, index) => (
@@ -273,7 +275,7 @@ export default function StuySummerTutoringTuteePage() {
                     <p className="mt-4">For any questions, please email us at:</p>
                     <a href="mailto:stuysummertutoring@gmail.com" className="text-blue-400 hover:text-blue-300 transition-colors">stuysummertutoring@gmail.com</a>
                     <p className="mt-2">or MESSAGE (do not call) David at (917)-602-0368.</p>
-                    <p className="text-sm mt-6">&copy; {new Date().getFullYear()} Stuyvesant Summer Tutoring | David Lee, SST President '25</p>
+                    <p className="text-sm mt-6">&copy; {new Date().getFullYear()} Stuyvesant Summer Tutoring | David Lee, SST President &apos;25</p>
                 </div>
             </footer>
         </div>
