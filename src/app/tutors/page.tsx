@@ -1,15 +1,21 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpen, Award, Users, ArrowRight, Menu, X } from 'lucide-react';
 
+// --- Type Definitions ---
+interface AnimatedSectionProps {
+    children: ReactNode;
+    className?: string;
+    direction?: 'up' | 'down' | 'left' | 'right';
+}
+
 // --- Helper Hooks and Components for Animations ---
 
-// Custom hook to detect if an element is in the viewport
-const useOnScreen = (options) => {
-    const ref = useRef(null);
+const useOnScreen = <T extends Element>(options: IntersectionObserverInit): [React.RefObject<T>, boolean] => {
+    const ref = useRef<T>(null);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -35,9 +41,8 @@ const useOnScreen = (options) => {
     return [ref, isVisible];
 };
 
-// Component to wrap content that should fade in on scroll from different directions
-const AnimatedSection = ({ children, className = '', direction = 'up' }) => {
-    const [ref, isVisible] = useOnScreen({ threshold: 0.2, triggerOnce: true });
+const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className = '', direction = 'up' }) => {
+    const [ref, isVisible] = useOnScreen<HTMLDivElement>({ threshold: 0.2, rootMargin: '0px' });
 
     const getDirectionClasses = () => {
         switch (direction) {
@@ -60,19 +65,18 @@ const AnimatedSection = ({ children, className = '', direction = 'up' }) => {
 };
 
 
-// Helper component for animated number counters
-const CountUpNumber = ({ end, duration = 2000 }) => {
+const CountUpNumber = ({ end, duration = 2000 }: { end: number; duration?: number }) => {
   const [count, setCount] = useState(0);
-  const [ref, isVisible] = useOnScreen({ threshold: 0.5, triggerOnce: true });
+  const [ref, isVisible] = useOnScreen<HTMLSpanElement>({ threshold: 0.5 });
 
   useEffect(() => {
     if (isVisible) {
         const start = 0;
-        const endValue = parseInt(end, 10);
+        const endValue = end;
         if (start === endValue) return;
 
-        let startTime = null;
-        const step = (timestamp) => {
+        let startTime: number | null = null;
+        const step = (timestamp: number) => {
           if (!startTime) startTime = timestamp;
           const progress = Math.min((timestamp - startTime) / duration, 1);
           setCount(Math.floor(progress * endValue));
@@ -88,11 +92,10 @@ const CountUpNumber = ({ end, duration = 2000 }) => {
 };
 
 
-// Helper component for the countdown timer
-const CountdownTimer = ({ targetDate }) => {
+const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
     const calculateTimeLeft = () => {
         const difference = +new Date(targetDate) - +new Date();
-        let timeLeft = {};
+        let timeLeft: { [key: string]: number } = {};
 
         if (difference > 0) {
             timeLeft = {
@@ -190,6 +193,7 @@ export default function StuySummerTutoringTutorPage() {
                             <a href="https://forms.gle/hK3xjXTvdE5UpsUW8" target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-full hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
                                 Start Your Application
                             </a>
+                            <p className="mt-4 text-sm text-gray-500">First come, first served!</p>
                         </AnimatedSection>
                     </div>
                 </section>
