@@ -38,7 +38,7 @@ const useOnScreen = <T extends Element>(options: IntersectionObserverInit): [Rea
         };
     }, [ref, options]);
 
-    return [ref, isVisible];
+    return [ref, isVisible] as const;
 };
 
 const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className = '', direction = 'up' }) => {
