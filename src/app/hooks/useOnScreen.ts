@@ -1,3 +1,5 @@
+
+
 import { useState, useEffect, useRef } from 'react';
 
 export const useOnScreen = <T extends Element>(options: IntersectionObserverInit) => {
@@ -8,9 +10,7 @@ export const useOnScreen = <T extends Element>(options: IntersectionObserverInit
         const observer = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) {
                 setIsVisible(true);
-                if (entry.target) {
-                    observer.unobserve(entry.target);
-                }
+                observer.unobserve(entry.target);
             }
         }, options);
 
