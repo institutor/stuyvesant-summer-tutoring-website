@@ -255,7 +255,7 @@ export default function StuySummerTutoringTuteePage() {
                      <AnimatedSection className="max-w-3xl mx-auto">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
-                            <p className="mt-3 text-lg text-gray-600">Have questions? We've got answers.</p>
+                            <p className="mt-3 text-lg text-gray-600">Have questions? We&apos;ve got answers.</p>
                         </div>
                         <div>
                             {faqData.map((faq, index) => (
@@ -286,7 +286,7 @@ export default function StuySummerTutoringTuteePage() {
                     <p className="mt-4">For any questions, please email us at:</p>
                     <a href="mailto:stuysummertutoring@gmail.com" className="text-blue-400 hover:text-blue-300 transition-colors">stuysummertutoring@gmail.com</a>
                     <p className="mt-2">or MESSAGE (do not call) David at (917)-602-0368.</p>
-                    <p className="text-sm mt-6">© {new Date().getFullYear()} Stuyvesant Summer Tutoring | David Lee, SST President '25</p>
+                    <p className="text-sm mt-6">© {new Date().getFullYear()} Stuyvesant Summer Tutoring | David Lee, SST President &apos;25</p>
                 </div>
             </footer>
         </div>
