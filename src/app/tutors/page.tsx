@@ -13,8 +13,7 @@ interface AnimatedSectionProps {
 }
 
 // --- Helper Hooks and Components for Animations ---
-
-const useOnScreen = <T extends Element>(options: IntersectionObserverInit): [React.RefObject<T>, boolean] => {
+const useOnScreen = <T extends Element>(options: IntersectionObserverInit) => {
     const ref = useRef<T>(null);
     const [isVisible, setIsVisible] = useState(false);
 
@@ -241,7 +240,7 @@ export default function StuySummerTutoringTutorPage() {
                     <div className="container mx-auto px-6 text-center">
                         <AnimatedSection>
                             <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Impact Last Summer</h2>
-                            <p className="text-blue-200 text-lg max-w-2xl mx-auto mb-10">We&apos;re proud of what our community achieves together. The numbers speak for themselves.</p>
+                            <p className="text-blue-200 text-lg max-w-2xl mx-auto mb-10">We're proud of what our community achieves together. The numbers speak for themselves.</p>
                         </AnimatedSection>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                              <AnimatedSection direction="up" className="bg-blue-700/50 p-8 rounded-xl">
@@ -281,7 +280,7 @@ export default function StuySummerTutoringTutorPage() {
                 <div className="container mx-auto px-6 text-center">
                     <p className="font-semibold text-lg text-white">Stuyvesant Summer Tutoring</p>
                     <p className="mt-2">Your SST President and Vice President, David and Tiffany</p>
-                    <p className="text-sm mt-6">&copy; {new Date().getFullYear()} Stuyvesant Summer Tutoring | David Lee, SST President &apos;25</p>
+                    <p className="text-sm mt-6">© {new Date().getFullYear()} Stuyvesant Summer Tutoring | David Lee, SST President '25</p>
                 </div>
             </footer>
         </div>
