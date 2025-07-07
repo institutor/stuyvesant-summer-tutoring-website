@@ -1,13 +1,13 @@
-// src/app/tutors/page.tsx
+
 
 "use client";
 
-// CORRECTED: 'useRef' has been removed from this import line as it is no longer used.
+
 import React, { useState, useEffect, ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpen, Award, Users, ArrowRight, Menu, X } from 'lucide-react';
-import { useOnScreen } from '../hooks/useOnScreen'; // CORRECTED: Path changed to use the standard Next.js alias
+import { useOnScreen } from '../hooks/useOnScreen'; 
 
 // --- Type Definitions ---
 interface AnimatedSectionProps {
@@ -16,10 +16,7 @@ interface AnimatedSectionProps {
     direction?: 'up' | 'down' | 'left' | 'right';
 }
 
-// THE LOCAL useOnScreen HOOK IS CORRECTLY DELETED FROM HERE.
-
 const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className = '', direction = 'up' }) => {
-    // This correctly uses the imported hook
     const [ref, isVisible] = useOnScreen<HTMLDivElement>({ threshold: 0.2, rootMargin: '0px' });
 
     const getDirectionClasses = () => {
@@ -44,7 +41,6 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
 
 
 const CountUpNumber = ({ end, duration = 2000 }: { end: number; duration?: number }) => {
-  // This correctly uses the imported hook
   const [count, setCount] = useState(0);
   const [ref, isVisible] = useOnScreen<HTMLSpanElement>({ threshold: 0.5 });
 
@@ -121,7 +117,7 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
 
 // Main App Component for Tutor Page
 export default function StuySummerTutoringTutorPage() {
-    const applicationDeadline = "2025-07-05T03:59:00Z"; // July 4th @ 11:59 PM EDT is July 5th 03:59 UTC
+    const applicationDeadline = "2025-07-05T03:59:00Z"; 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -172,12 +168,9 @@ export default function StuySummerTutoringTutorPage() {
                             <a href="https://forms.gle/hK3xjXTvdE5UpsUW8" target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-full hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
                                 Start Your Application
                             </a>
-                            <p className="mt-4 text-sm text-gray-500">First come, first served!</p>
                         </AnimatedSection>
                     </div>
                 </section>
-                
-                {/* Deadline Countdown Section */}
                 <section className="bg-white pb-16 md:pb-24">
                     <AnimatedSection className="container mx-auto px-6 text-center">
                         <h3 className="text-xl font-semibold text-gray-700 mb-2">Application Deadline</h3>
